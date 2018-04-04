@@ -13,7 +13,7 @@ public class BuildMainMenuStringTest {
 
   @Test
   public void testEnterStr() {
-    BuildMainMenuString result = new BuildMainMenuString();
+
   }
 
 }

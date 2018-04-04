@@ -23,12 +23,11 @@ public class Operator {
   private void operator(int selectiveType){
     switch (selectiveType) {
       case ADD_STUDENT_GRADLE:
-        addStudentMonitor();
-        addStudentGradle();
+        new com.tw.AddStudentGrade(klass).addStudentGrade();
         start();
         break;
       case CREATE_GRADE_LIST:
-        createGradleList();
+        new com.tw.CreateGradeList(klass).createGradeList();
         start();
         break;
       case EXIT:
@@ -41,75 +40,8 @@ public class Operator {
     }
   }
 
-//  陈鑫, 1405110115, math: 100, chinese: 100, english: 100, coding: 100
-//  二狗, 1405110086, math: 80, chinese: 70, english: 80, coding: 88
-//  点点, 1405110111, math: 70, chinese: 60, english: 80, coding: 90
-  private void addStudentMonitor(){
-    System.out.println("请输入学生信息（格式：姓名, 学号, 学科: 成绩, ...），按回车提交：");
-  }
 
-  //调用保存成绩函数，添加学生成绩
-  private void addStudentGradle() {
 
-    Scanner s = new Scanner(System.in);
-    String input = s.nextLine();
-
-    Student studentGradleArr = transformInputStringToStudentGradleArr(input);
-
-    if (studentGradleArr != null) {
-      saveStudentToDB(studentGradleArr);
-    } else {
-      System.out.println("请按正确的格式输入（格式：姓名, 学号, 学科: 成绩, ...）：");
-      addStudentGradle();
-    }
-  }
-
-  //在班级中保存该学生的成绩函数
-  private void saveStudentToDB(Student student) {
-    klass.addStudent(student);
-    System.out.println("学生" + student.getName() + "的成绩被添加");
-  }
-
-  //把输入的格式转换为学生成绩对象
-  private Student transformInputStringToStudentGradleArr(String input) {
-
-    String[] studentGradleArr = input.split(",");
-
-    if (studentGradleArr.length != 6) {
-
-      return null;
-
-    } else {
-      String id = studentGradleArr[1];
-      String name = studentGradleArr[0];
-      Double math = Double.parseDouble(studentGradleArr[2].split(":")[1]);
-      Double chinese = Double.parseDouble(studentGradleArr[3].split(":")[1]);
-      Double english = Double.parseDouble(studentGradleArr[4].split(":")[1]);
-      Double coding = Double.parseDouble(studentGradleArr[5].split(":")[1]);
-
-      return new Student(id, name, math, chinese, english, coding);
-    }
-  }
-
-  //创建成绩单
-  private void createGradleList(){
-    if(klass.getStudents().size() == 0) {
-      System.out.println("生成成绩单失败，请先添加成绩！");
-    }else {
-      StringBuilder str = new StringBuilder("成绩单\n"
-          + "姓名|数学|语文|英语|编程|平均分|总分\n"
-          + "========================\n");
-      List<com.tw.Student> students = klass.getStudents();
-
-      for(Student student : students) {
-        str.append(student.setGradeSheet());
-      }
-
-      str.append(String.format("全班总分平均数：%s\n全班总分中位数：%s", klass.getAverageOfAllClass(), klass.getMedianOfAllClass()));
-
-      System.out.println(str.toString());
-    }
-  }
 
   private void exit(){
     System.out.println("已退出，欢迎下次使用！");
