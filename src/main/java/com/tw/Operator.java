@@ -1,8 +1,5 @@
 package com.tw;
 
-import java.util.Scanner;
-import java.util.List;
-
 public class Operator {
 
   private static final int ADD_STUDENT_GRADLE = 1;

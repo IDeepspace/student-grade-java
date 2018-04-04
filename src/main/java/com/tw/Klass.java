@@ -19,7 +19,7 @@ public class Klass {
   }
 
   //班级总分
-  private double getSumOfAllClass(){
+  public double getSumOfAllClass(){
     double sumOfAllClass = 0;
     for (Student student : students) {
       sumOfAllClass += student.getSum();
